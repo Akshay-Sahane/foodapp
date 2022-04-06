@@ -1,0 +1,17 @@
+{% extends 'food/base.html' %}
+{% block title %}passwordreset{% endblock title %}
+
+{% block body %}
+    
+<div class="container bg-light" style="width:60%;">
+    <form action="/accounts/otp" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <label for="otp">OTP</label>
+          <input type="text" class="form-control" name="otp" id="otp" placeholder="Enter otp">
+        </div>        
+        <button type="submit" class="btn btn-primary m-3">submit</button>
+      </form>
+</div>
+
+{% endblock body %}

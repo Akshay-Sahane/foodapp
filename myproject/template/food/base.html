@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food |{% block title%}Home{%endblock title%}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <!-- <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+  
+   
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-2 text-warning" href=""> <i class="fa-solid fa-utensils text-success"></i> Family Resto</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-auto text-center">
+          <li class="nav-item mb-1 mx-3 rounded">
+           <strong><a class="nav-link text-success bb font-weight-bold" aria-current="page" href="/food/"><i class="fa-solid fa-house"></i> Home</a></strong>
+          </li>
+          <li class="nav-item mb-1 mx-3 rounded">
+            <strong><a class="nav-link" href="/food/foodlist"><i class="fa-solid fa-pizza-slice"></i> Dishes</a></strong>
+          </li>
+          <li class="nav-item mb-1 mx-3 rounded">
+            <strong><a class="nav-link"> <i class="fa-solid fa-address-card"></i> About</a></strong>
+          </li>
+          <li class="nav-item mb-1 mx-3 rounded">
+            <strong><a class="nav-link" href="/accounts/review"><i class="fa-solid fa-comments"></i> Review</a></strong>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {% if request.user.is_authenticated %}
+                    <b class="text-info mx-2">welcome {{ request.user.first_Name }}</b>
+                    {% else %}
+                     <b>user</b>
+                  {% endif %}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% if request.user.is_authenticated %}
+                  
+              {% if request.user.is_superuser or request.user.user_Role == 'admin' %}
+              <li><b><a class="dropdown-item" href="/food/create-food">Add food</a></b></li>
+              <li><b><a class="dropdown-item" href="/accounts/register-admin">Add staff</a></b></li>
+              <li><b><a class="dropdown-item" href="/accounts/profile/{{ user.userId }}">Profile</a></b></li>
+              {% elif request.user.user_Role == 'customer' %}
+              <li><b><a class="dropdown-item" href="/cart/viewcart"><i class="fa-solid fa-cart-shopping"></i>Cart</a></b></li>
+              {% endif %}
+                
+              <li><b><a class="dropdown-item" href="/accounts/logout">logout</a></b></li>
+              {% else %}
+              <li><b><a class="dropdown-item" href="/accounts/register-customer">Register</a></b></li>
+              <li><b><a class="dropdown-item" href="/accounts/login">Login</a></b></li>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+       <form action="/food/searchfood" class="d-flex mx-auto" style="padding-top:5rem;width:50%;">
+          <input class="form-control me-2 searchbox" type="text" name="q" placeholder="Search food here" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+              
+    {% block body %}
+    
+    {% endblock body %}
+
+    <script src="{% static '/js/script.js' %}"></script>
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

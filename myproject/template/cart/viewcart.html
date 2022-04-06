@@ -1,0 +1,62 @@
+{% extends 'food/base.html' %}
+
+{% block title%} cart {% endblock title %}   
+
+
+{% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(function(){
+        $("input[name='quantity']").change(function(){
+            let id=$(this).attr("id")
+            let quantity=$(this).val()
+            // ajax request
+            $.get("updatecart",{'id':id,'quantity':quantity},function(data,status){
+                $("#subtotal"+id).html(data.sub_total),
+                $("#Totalprice").html("&#8377; "+data.final_total)
+            })
+        })
+    })
+</script>
+    <div class="container">
+        {% include 'messages.html' %}
+        <table class="table">
+            <tr class="text-center">
+                <th>customer name</th>
+                <td>{{ cart.user.first_Name}}  {{ cart.user.last_Name }}</td>
+                <th>CreationDate</th>
+                <td>{{ cart.created_at}}</td>
+            </tr>
+            <tr>
+                <th>Food Name</th>
+                <th>Food Price</th>
+                <th>Food Quantity</th>
+                <th>Date</th>
+                <th>Sub Total</th>
+                <th colspan="2">Action</th>
+            </tr>
+            
+            {% for item in cart.itemlist.all %}
+                <tr>
+                    <th>{{ item.food.foodName }}</th>
+                    <th>{{ item.food.foodPrice }}</th>
+                    <th><input style="width:5rem;" class="form-control" type="number" min="1" value="{{ item.quantity }}" name="quantity" id="{{ item.pk }}"></th>
+                    <th>{{ item.created_at }}</th>
+                    <th id="subtotal{{ item.pk }}" class="sub">&#8377;{{item.sub_total}}</th>
+                    <th><a class="btn btn-danger" href="/cart/removeitem/{{ item.pk }}">Remove</a></th>
+                </tr>
+
+                {% empty %}
+                <tr>
+                <td colspan="4" class="text-center"><h4 class="text-center">Cart is empty</h4></td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <th colspan="2">Total Price  </th>
+                <th colspan="2" id="Totalprice">&#8377; {{cart.final_total}}</th>
+                <th> <a class="btn btn-success" href="/cart/order">order</a></th>
+            </tr>
+        </table>
+    </div>
+{% endblock body %}
+    

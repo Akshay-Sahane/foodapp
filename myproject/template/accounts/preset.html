@@ -1,0 +1,18 @@
+{% extends 'food/base.html' %}
+{% block title %}passwordreset{% endblock title %}
+
+{% block body %}
+    
+<div class="container bg-light" style="width:60%;">
+    <form action="/accounts/sendotp" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <label for="mobile">Mobile Number</label>
+          <input type="text" id="mobile" class="form-control" name="mobile" placeholder="Enter registered mobile number">
+        </div>        
+        <button type="submit" class="btn btn-primary m-3">get otp</button>
+      </form>
+</div>
+
+{% endblock body %}
+    

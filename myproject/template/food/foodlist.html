@@ -1,0 +1,54 @@
+{% extends 'food/base.html' %}
+
+{% block title %} food-menu {% endblock title %}
+    
+  
+
+{% block body %}
+
+<h1 class="text-center">Food Menu</h1>
+
+<div class="dropdown text-center">
+  <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    sort by
+  </a>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href="/food/foodsortname">Name</a></li>
+    <li><a class="dropdown-item" href="/food/foodsortpriceasc">Price low to high</a></li>
+    <li><a class="dropdown-item" href="/food/foodsortpricedesc">Price high to low</a></li>
+  </ul>
+</div>
+
+{% include 'messages.html' %}
+  
+     <div class="row container">
+       <!-- <label for="sorting">sort by</label> -->
+       
+        {% for food in object_list  %}
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 my-3">
+
+                <div class="card mx-2 my-2 bg-light" style="height:400px;">
+                    <img src="{{ food.foodImage.url }}" class="card-img-top p-4" alt="..." style="height:230px;">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">{{ food.foodName }}|{{ food.foodType }}</h5>
+                      <h4>&#8377;{{ food.foodPrice }}</h4>
+                        <details title="Read me">
+                      <p class="card-text">{{ food.foodDescription }}</p>
+                      </details>
+                      <div class="text-center">
+                        {% if request.user.is_authenticated and request.user.is_superuser or request.user.user_Role == 'admin' %}
+                      <a href="/food/update-food/{{ food.pk }}" class="btn btn-warning my-1">edit</a>
+                      <a href="/food/delete-food/{{ food.pk }}" class="btn btn-danger my-1">delete</a>
+                      {% endif %}
+                      {% if request.user.is_authenticated and request.user.user_Role == 'customer' %}
+                      <a href="/cart/addtocart/{{ food.pk }}" class="btn btn-primary my-1">addtocart</a>
+                      {% endif %}
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        {% endfor %}
+     </div>
+
+{% endblock body %}

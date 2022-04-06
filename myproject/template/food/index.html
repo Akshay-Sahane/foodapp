@@ -1,0 +1,57 @@
+{% extends 'food/base.html' %}
+{% load static %}
+
+
+{% block body %}
+{% include 'messages.html' %}
+    <section class="home bg-white" id="home">
+    
+        <div class="swiper-container home-slider">
+      
+            <div class="swiper-wrapper wrapper">
+      
+                <div class="swiper-slide slide">
+                    <div class="content">
+                        <span>our special dish</span>
+                        <h3>spicy noodles</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <a href="/food/foodlist" class="btn btn-success">order now</a>
+                    </div>
+                    <div class="image">
+                        <img src="{% static 'images/home-img-1.png' %}" alt="">
+                    </div>
+                </div>
+      
+                <div class="swiper-slide slide">
+                    <div class="content">
+                        <span>our special dish</span>
+                        <h3>fried chicken</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <a href="/food/foodlist" class="btn btn-success">order now</a>
+                    </div>
+                    <div class="image">
+                        <img src="{% static 'images/home-img-2.png' %}" alt="">
+                    </div>
+                </div>
+      
+                <div class="swiper-slide slide">
+                    <div class="content">
+                        <span>our special dish</span>
+                        <h3>hot pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <a href="/food/foodlist" class="btn btn-success">order now</a>
+                    </div>
+                    <div class="image">
+                        <img src="{% static 'images/home-img-3.png' %}" alt="">
+                    </div>
+                </div>
+      
+            </div>
+      
+            <div class="swiper-pagination"></div>
+      
+        </div>
+      
+      </section>
+{% endblock body %}
+    

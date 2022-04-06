@@ -1,0 +1,35 @@
+{% extends 'food/base.html' %}
+{% block title %}
+    Login Form
+{% endblock title %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+    {% include 'messages.html' %}
+    <div class="row">
+    <div class="col-7 d-flex flex-wrap align-items-center">
+        <img src="{% static 'images/about-img.png' %}" alt="" width="100%">
+        </div>
+        <div class="col-5 my-auto">
+            <h1 class="text-info ms-5 my-5">Login here</h1>
+   <form action="" method="post" novalidate >
+       {% csrf_token %}
+       <table class="table border-white">
+            {{form.as_table}}
+            <tr>
+                <td colspan="2">
+                    <input class="btn btn-success" type="submit" value="Login">
+                    <input class="btn btn-danger"type="reset" value="Cancel">
+                </td>
+            </tr>
+            
+            <tr><td colspan="2"><a href="/accounts/preset" class="text-decoration-none">Forgot Password?</a></td></tr>
+       </table>
+   </form>
+   </div>
+   </div>
+</div>
+{% endblock body %}
+    
+    

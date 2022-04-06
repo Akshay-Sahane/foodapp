@@ -1,0 +1,11 @@
+
+{% if messages %}
+    
+    {% for msg in messages %}
+        <div class="alert alert-{{ msg.tags }} mx-auto text-center" style="width:20rem;" role="alert">
+                <b>{{ msg }}</b>
+        </div>
+    {% endfor %}
+        
+{% endif %}
+    
