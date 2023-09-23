@@ -5,27 +5,23 @@
 {% endblock title %}
 
 {% block body %}
-<div class="container mt-5 bg-light text-center" style="width: 50rem;">
-   <h3 class="text-center">your order contains</h3>
-   <table class="table">
-   <tr>
-       <th>Items</th>
-       <th>quantity</th>
-       <th>Price</th>
-   </tr>
-   {% for item in cart.itemlist.all %}
-    <tr>
-        <td>{{ item.food.foodName }}</td>
-        <td>{{ item.quantity }}</td>
-        <td> &#8377; {{ item.sub_total }}</td>
-    </tr>
-   {% endfor %}
-   </table>
-   <h5>Total Amout to pay: &#8377; {{ cart.final_total }}</h5>
-    <a href="/checkout/payment/{{ cart.final_total }}" class="btn btn-danger">continue</a>
+    <div class="container mt-5 bg-light text-center" style="width: 50rem;">
+        <h3 class="text-center">your order contains</h3>
+        <table class="table">
+            <tr>
+                <th>Items</th>
+                <th>quantity</th>
+                <th>Price</th>
+            </tr>
+            {% for item in cart.itemlist.all %}
+                <tr>
+                    <td>{{ item.food.foodName }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td> &#8377; {{ item.sub_total }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h5>Total Amout to pay: &#8377; {{ cart.final_total }}</h5>
+        <a href="/checkout/payment/{{ cart.final_total }}" class="btn btn-danger">continue</a>
     </div>
-    <div>
 {% endblock body %}
-
-
-    
